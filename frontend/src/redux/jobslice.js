@@ -18,7 +18,6 @@ const jobSlice = createSlice({
         setSingleJob:(state, action) => {
             state.singleJob = action.payload;
         },
-        // YAHAN CHANGE KIYA HAI: setAllJobs ki jagah setAllJobss likha hai
         setAllJobss:(state, action) => {
             state.allJobss = action.payload;
         },

@@ -18,11 +18,6 @@ import Applicants from './components/admin/Applicants'
 import ProtectedRoute from './components/admin/ProtectedRoute'
 
 const appRouter = createBrowserRouter([
-
-    // =========================
-    // USER ROUTES
-    // =========================
-
     {
         path: '/',
         element: <Home />
@@ -57,11 +52,6 @@ const appRouter = createBrowserRouter([
         path: '/description/:id',
         element: <JobDescription />
     },
-
-
-    // =========================
-    // ADMIN / RECRUITER ROUTES
-    // =========================
 
     {
         path: "/admin/companies",
