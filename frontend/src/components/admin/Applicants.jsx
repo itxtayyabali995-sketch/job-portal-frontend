@@ -9,12 +9,8 @@ import { setAllApplicants } from "@/redux/applicationSlice";
 
 const Applicants = () => {
     const { id } = useParams();
-
     const dispatch = useDispatch();
-
-    const { applicants = [] } = useSelector(
-        (store) => store.application
-    );
+    const { applicants = [] } = useSelector((store) => store.application);
 
     useEffect(() => {
         const fetchAllApplicants = async () => {
@@ -31,33 +27,17 @@ const Applicants = () => {
                     }
                 );
 
-                console.log("Applicants API Response:", res.data);
-
                 if (res.data.success) {
                     if (res.data.job?.applications) {
-                        dispatch(
-                            setAllApplicants(
-                                res.data.job.applications
-                            )
-                        );
-                    }
-
-                    else if (res.data.applications) {
-                        dispatch(
-                            setAllApplicants(
-                                res.data.applications
-                            )
-                        );
+                        dispatch(setAllApplicants(res.data.job.applications));
+                    } else if (res.data.applications) {
+                        dispatch(setAllApplicants(res.data.applications));
                     } else {
                         dispatch(setAllApplicants([]));
                     }
                 }
             } catch (error) {
-                console.log(
-                    "Fetch Applicants Error:",
-                    error.response?.data || error.message
-                );
-
+                console.log("Fetch Applicants Error:", error.response?.data || error.message);
                 dispatch(setAllApplicants([]));
             }
         };
@@ -70,11 +50,11 @@ const Applicants = () => {
     }, [id, dispatch]);
 
     return (
-        <div>
+        <div className='overflow-x-hidden min-h-screen bg-white'>
             <Navbar />
 
-            <div className="max-w-7xl mx-auto px-4">
-                <h1 className="font-bold text-xl my-5">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-6">
+                <h1 className="font-bold text-xl sm:text-2xl mb-5 text-gray-800">
                     Applicants ({applicants.length})
                 </h1>
 

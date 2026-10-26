@@ -33,9 +33,7 @@ const filterData = [
 ]
 
 const FilterCard = ({ selectedFilters, setSelectedFilters }) => {
-
     const handlerChange = (filterType, value) => {
-
         setSelectedFilters({
             ...selectedFilters,
             [filterType]: value
@@ -43,40 +41,27 @@ const FilterCard = ({ selectedFilters, setSelectedFilters }) => {
     }
 
     return (
-        <div className='w-full bg-white p-5 rounded-md shadow-md'>
-
-            <h1 className='font-bold text-lg'>
+        <div className='w-full bg-white p-4 sm:p-5 rounded-md shadow-md border border-gray-100'>
+            <h1 className='font-bold text-lg text-gray-800'>
                 Filter Jobs
             </h1>
-
-            <hr className='mt-3' />
-
+            <hr className='mt-3 border-gray-200' />
 
             {
                 filterData.map((data, index) => (
-
-                    <div
-                        key={index}
-                        className='my-4'
-                    >
-
-                        <h1 className='font-semibold mb-2'>
+                    <div key={index} className='my-4'>
+                        <h1 className='font-semibold mb-2 text-gray-700'>
                             {data.filterType}
                         </h1>
 
-
                         {
                             data.array.map((item, idx) => {
-
                                 const id = `r-${index}-${idx}`
-
                                 return (
-
                                     <div
                                         key={idx}
                                         className="flex items-center space-x-2 my-2 cursor-pointer"
                                     >
-
                                         <input
                                             type="radio"
                                             name={data.filterType}
@@ -93,25 +78,19 @@ const FilterCard = ({ selectedFilters, setSelectedFilters }) => {
                                             }
                                             className="w-4 h-4 cursor-pointer accent-[#6A38C2]"
                                         />
-
                                         <label
                                             htmlFor={id}
-                                            className='cursor-pointer text-sm text-gray-700 select-none'
+                                            className='cursor-pointer text-sm text-gray-600 select-none hover:text-black'
                                         >
                                             {item}
                                         </label>
-
                                     </div>
-
                                 )
                             })
                         }
-
                     </div>
-
                 ))
             }
-
         </div>
     )
 }

@@ -14,6 +14,7 @@ const CompaniesTable = () => {
     const { companies = [], searchCompanyByText } = useSelector(store => store.company);
     const [filtercompany, setFilterCompany] = useState(companies);
     const navigate = useNavigate();
+
     const deleteCompanyHandler = async (companyId) => {
         try {
             const res = await axios.delete(
@@ -37,12 +38,12 @@ const CompaniesTable = () => {
             }
         } catch (error) {
             console.log(error);
-
             toast.error(
                 error?.response?.data?.message || "Failed to delete company"
             );
         }
     };
+
     useEffect(() => {
         const filteredCompany = companies.filter(company => {
             if (!searchCompanyByText) {
@@ -54,7 +55,7 @@ const CompaniesTable = () => {
     }, [companies, searchCompanyByText]);
 
     return (
-        <div>
+        <div className='overflow-x-auto w-full bg-white rounded-lg border border-gray-100 shadow-sm'>
             <Table>
                 <TableCaption>A list of your recent registered companies.</TableCaption>
                 <TableHeader>
@@ -69,31 +70,40 @@ const CompaniesTable = () => {
                     {
                         filtercompany.length === 0 ? (
                             <TableRow>
-                                <TableCell colSpan={4} className="text-center">You haven't registered any company yet.</TableCell>
+                                <TableCell colSpan={4} className="text-center py-6 text-gray-500">
+                                    You haven't registered any company yet.
+                                </TableCell>
                             </TableRow>
                         ) : (
                             filtercompany.map((company) => (
-                                <TableRow key={company._id}>
+                                <TableRow key={company?._id}>
                                     <TableCell>
                                         <Avatar>
-                                            <AvatarImage src={company.logo} />
+                                            <AvatarImage src={company?.logo} alt="logo" />
                                         </Avatar>
                                     </TableCell>
-                                    <TableCell>{company.name}</TableCell>
-                                    <TableCell>{company.createdAt ? company.createdAt.split("T")[0] : "N/A"}</TableCell>
-                                    <TableCell className="text-right cursor-pointer">
+                                    <TableCell className="font-medium">{company?.name}</TableCell>
+                                    <TableCell>{company?.createdAt ? company.createdAt.split("T")[0] : "N/A"}</TableCell>
+                                    <TableCell className="text-right">
                                         <Popover>
-                                            <PopoverTrigger><MoreHorizontal /></PopoverTrigger>
-                                            <PopoverContent className="w-32">
-                                                <div onClick={() => navigate(`/admin/companies/${company._id}`)} className='flex items-center gap-2 w-fit cursor-pointer'>
-                                                    <Edit2 className='w-4' />
+                                            <PopoverTrigger asChild>
+                                                <button type="button" className="cursor-pointer p-2 hover:bg-gray-100 rounded-full">
+                                                    <MoreHorizontal className="h-4 w-4" />
+                                                </button>
+                                            </PopoverTrigger>
+                                            <PopoverContent className="w-32 bg-white p-2 shadow-md border border-gray-200">
+                                                <div 
+                                                    onClick={() => navigate(`/admin/companies/${company?._id}`)} 
+                                                    className='flex items-center gap-2 cursor-pointer p-2 hover:bg-gray-100 rounded text-sm text-gray-700'
+                                                >
+                                                    <Edit2 className='h-4 w-4 text-gray-500' />
                                                     <span>Edit</span>
                                                 </div>
                                                 <div
-                                                    onClick={() => deleteCompanyHandler(company._id)}
-                                                    className='flex items-center gap-2 w-fit cursor-pointer text-red-500 mt-3'
+                                                    onClick={() => deleteCompanyHandler(company?._id)}
+                                                    className='flex items-center gap-2 cursor-pointer p-2 hover:bg-red-50 rounded text-sm text-red-600 mt-1'
                                                 >
-                                                    <Trash2 className='w-4' />
+                                                    <Trash2 className='h-4 w-4' />
                                                     <span>Delete</span>
                                                 </div>
                                             </PopoverContent>

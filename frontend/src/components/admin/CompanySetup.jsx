@@ -50,7 +50,6 @@ const CompanySetup = () => {
 
     const changeFileHandler = (e) => {
         const file = e.target.files?.[0] || null;
-
         setInput({
             ...input,
             file,
@@ -66,7 +65,6 @@ const CompanySetup = () => {
         }
 
         const formData = new FormData();
-
         formData.append('name', input.name);
         formData.append('description', input.description);
         formData.append('website', input.website);
@@ -78,7 +76,6 @@ const CompanySetup = () => {
 
         try {
             setLoading(true);
-
             const token = localStorage.getItem('token');
 
             const res = await axios.put(
@@ -98,7 +95,6 @@ const CompanySetup = () => {
                 toast.success(
                     res.data.message || 'Company information updated successfully'
                 );
-
                 navigate('/admin/companies');
             }
         } catch (error) {
@@ -122,31 +118,30 @@ const CompanySetup = () => {
     };
 
     return (
-        <div>
+        <div className='overflow-x-hidden min-h-screen bg-white'>
             <Navbar />
 
-            <div className="max-w-xl mx-auto my-10">
+            <div className="max-w-xl mx-4 sm:mx-auto my-10 bg-white p-6 sm:p-8 rounded-xl border border-gray-100 shadow-sm">
                 <form onSubmit={submitHandler}>
 
-                    <div className="flex items-center gap-5 p-8">
+                    <div className="flex items-center gap-5 mb-6">
                         <Button
                             type="button"
                             onClick={() => navigate('/admin/companies')}
                             variant="outline"
-                            className="flex items-center gap-2 font-semibold text-gray-500"
+                            className="flex items-center gap-2 font-semibold text-gray-600"
                         >
-                            <ArrowLeft />
+                            <ArrowLeft className="h-4 w-4" />
                             Back
                         </Button>
 
-                        <h1 className="font-bold text-xl">
-                            Company setup
+                        <h1 className="font-bold text-xl sm:text-2xl text-gray-800">
+                            Company Setup
                         </h1>
                     </div>
 
-                    <div className="mb-4">
-                        <Label>Company Name</Label>
-
+                    <div className="mb-4 space-y-1">
+                        <Label className="font-medium text-gray-700">Company Name</Label>
                         <Input
                             type="text"
                             name="name"
@@ -156,9 +151,8 @@ const CompanySetup = () => {
                         />
                     </div>
 
-                    <div className="mb-4">
-                        <Label>Description</Label>
-
+                    <div className="mb-4 space-y-1">
+                        <Label className="font-medium text-gray-700">Description</Label>
                         <Input
                             type="text"
                             name="description"
@@ -168,9 +162,8 @@ const CompanySetup = () => {
                         />
                     </div>
 
-                    <div className="mb-4">
-                        <Label>Website</Label>
-
+                    <div className="mb-4 space-y-1">
+                        <Label className="font-medium text-gray-700">Website</Label>
                         <Input
                             type="text"
                             name="website"
@@ -180,9 +173,8 @@ const CompanySetup = () => {
                         />
                     </div>
 
-                    <div className="mb-4">
-                        <Label>Location</Label>
-
+                    <div className="mb-4 space-y-1">
+                        <Label className="font-medium text-gray-700">Location</Label>
                         <Input
                             type="text"
                             name="location"
@@ -194,27 +186,25 @@ const CompanySetup = () => {
 
                     {singleCompany?.logo && (
                         <div className="mb-4">
-                            <Label>Current Logo</Label>
-
+                            <Label className="font-medium text-gray-700">Current Logo</Label>
                             <div className="mt-2">
                                 <img
                                     src={singleCompany.logo}
                                     alt="Company Logo"
-                                    className="w-20 h-20 object-contain border rounded-md"
+                                    className="w-20 h-20 object-contain border rounded-md p-1 bg-gray-50"
                                 />
                             </div>
                         </div>
                     )}
 
-                    <div className="mb-4">
-                        <Label>Logo</Label>
-
+                    <div className="mb-6 space-y-1">
+                        <Label className="font-medium text-gray-700">Logo</Label>
                         <Input
                             type="file"
                             accept="image/*"
                             onChange={changeFileHandler}
+                            className="cursor-pointer"
                         />
-
                         <p className="text-xs text-gray-500 mt-1">
                             Leave empty if you don't want to change the logo.
                         </p>
@@ -223,7 +213,7 @@ const CompanySetup = () => {
                     {loading ? (
                         <Button
                             type="button"
-                            className="w-full my-4"
+                            className="w-full my-4 bg-black text-white"
                             disabled
                         >
                             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
