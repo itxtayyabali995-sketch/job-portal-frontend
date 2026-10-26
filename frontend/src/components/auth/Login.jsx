@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setLoading, setUser } from '@/redux/authSlice'
 import { Loader2 } from 'lucide-react'
 
-const USER_API_END_POINT = "http://localhost:8000/api/v1/user"
+const USER_API_END_POINT = "https://job-portal-backend-production-5977.up.railway.app/api/v1/user"
 
 const Login = () => {
     const [input, setInput] = useState({
@@ -62,7 +62,6 @@ const Login = () => {
     } catch (error) {
         console.log("Login Error:", error);
 
-        // 3. Network Drop ya Timeout ka Error Handle
         if (error.message === 'Network Error' || error.code === 'ECONNABORTED') {
             toast.error("Network Error! Request timed out. Check your internet.");
         } else {
